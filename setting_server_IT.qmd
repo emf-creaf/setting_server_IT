@@ -1,0 +1,123 @@
+---
+title: "Setting up a remote server"
+format:
+    html:
+      toc: true
+      theme: minty
+---
+
+## Why I need a server
+
+External servers help with different tasks:
+
+  - Get access to more computational power to perform your analyses
+  - Hosting a web for a research project or research group
+  - Hosting resources and applications
+  - A place to share and store data
+  - Others...
+
+## Why a dedicated server in a data center?
+
+When in need of a server (for web hosting, data sharing or computational tasks) we have two main
+options, hosting ourselves the server or rent a dedicated server. These servers have several
+advantages:
+
+  (@) Available physical space: CREAF lacks of more space for servers, but the UAB offers space in
+  the **insert here name of the facility of UAB where servers are**.
+  
+  (@) Downtime: Hosting ourselves a server in CREAF/UAB premises means that we depend on the UAB
+  network. While this networks is fast and usually reliable, means that any failure in the network
+  (at UAB or CREAF level) will affect access to the server.  
+  Remote servers on the other hand are more reliable in this case.
+  
+  (@) UAB firewalls: Setting up a web, RStudio server or other software to being access outside the
+  UAB usually involves a lot of work and constant contact with CREAF and UAB IT services until is
+  correctly configured. Even with that, UAB policies changes from time to time without much notice.  
+  Server clouds are controlled by us, so we control access and firewalls (downside is that we control
+  access and firewall, so we need to configure them if needed).
+
+## How to select a server
+
+### Data center company
+
+CREAF recommends [Hetzner](https://www.hetzner.com/) as the cloud server provider.
+**To fill with more info**
+
+### Needs
+
+Choosing a server depends largely on the work that is gonna be done in it. Usually, the most
+important aspects to check on the server are:
+
+  - RAM: RAM will limit the computational power provided by the server, specially if we work with
+  R programming language, that relies in RAM storage for objects.  
+  - Processor cores: Number of cores will limit the availability of concurrent processes. Specially
+  important when we plan on parallelize analyses or workflows.
+  - Drive storage and type: Storage capacity will limit the amount of data (temporal or permanent)
+  that we can store in the server. Drive type will affect the speed of the access to the data.
+  - Location of the server: This has a legal consequence. Servers outside European Union must
+  comply with GDPR legislation (data protection)
+
+Here we'll describe several scenarios and the more important aspects to look at in each of them:
+
+  1. **Hosting a web page for a simple project or research group**  
+  Hosting simple web pages require not so much computational power, as well as storage. But it
+  requires fast access to the files (specially if we have a static webpage). In this scenario the
+  recommendations would be:
+  
+      + RAM: 16GB (as its the minimum Hetzner offers in dedicated servers)
+      + Cores: 6 cores (as its the minimum Hetzner offers in dedicated servers)
+      + Drive type: SSD
+      + Drive capacity: Depends on the web to host, but 1 Tb is more than enough
+      + Location: inside EU
+  
+  1. **RStudio server for analyses**  
+  Hosting a RStudio server allows to have a centralized place for all research group members to
+  code, share and store research projects. Different accounts can have its own Rstudio accessible
+  from any place with internet connection. The characteristics of the server depends largely on the
+  computations intended to be performed by the server:
+  
+      + RAM: 16GB to 128GB. Normal work like linear models, small and medium size data... will not
+      require big amount of RAM, 16GB will suffice. Intensive work as big data (+1 million rows),
+      spatial data with high resolutions, parallelization of time consuming analyses... will require
+      more RAM, up to 128GB or even more.
+      + Cores: 6 cores to 20 cores. Again depends on the type of computation needed. If
+      paralellization is going to be an important step, then more cores is better (must also be
+      paired with more RAM)
+      + Drive type: SSD, will speed the data access.
+      + Drive capacity: Depend on the size of the data intended to be used, but 4 Tb is a good
+      starting point.
+
+### RAID
+
+If the server is intended to work also as a backup server, or data integrity is really really
+important, then a [RAID](https://en.wikipedia.org/wiki/RAID) can be also configured in the server.
+In layman terms, a RAID system duplicate storage drives present in the server, using the duplicates
+for storing a copy of the data present in the *normal" drives. The extra space in the duplicated
+drives is not accessible, as it works mirroring the contents of the other drives.
+
+This is more complex of sertting up and maintaing, and this document will not cover RAID.
+
+### Operative system
+
+The only one, linux. Sorry, this is what it is. Windows servers are insecure by default, more
+exploited in the wild and require a more complex maintenance. Linux servers have also security
+exploits, but are easier to maintain, and applying a frequent updates policy, are more secure by
+default than Windows servers.
+
+## Steps to rent a remote server
+
+  1. Look at the previus sections of this document and decide what kind of server you need in terms
+  of RAM and cores range.
+  
+  1. Contact CREAF IT team at https://suport.creaf.cat/support/home and create a ticket with the
+  following info:
+  
+     - **to fill**
+  
+  1. Wait until IT confirms the process is done.
+  
+  1. You have a remote server.
+
+
+## I have a remote server, what now?
+
