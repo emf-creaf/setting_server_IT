@@ -99,7 +99,7 @@ This is more complex of sertting up and maintaing, and this document will not co
 
 ### Operative system
 
-The only one, linux. Sorry, this is what it is. Windows servers are insecure by default, more
+The only one, Linux. Sorry, this is what it is. Windows servers are insecure by default, more
 exploited in the wild and require a more complex maintenance. Linux servers have also security
 exploits, but are easier to maintain, and applying a frequent updates policy, are more secure by
 default than Windows servers.
@@ -119,11 +119,24 @@ default than Windows servers.
   (@) You have a remote server.
 
 
-## I have a remote linux server, what now?
+## I have a remote Linux server, what now?
 
-When the renting process ends, you will receive access
+When the renting process ends, you will receive an IP address (a numerical address that allows to
+locate and connect your server), and a password for the `root` account.  
+We will explain how to connect to the server using the IP address in the following sections, but is
+important to take a moment to explain what is the `root` account in a Linux system.
 
-  - explanation about root and normal user accounts
+### `root` user
+
+`root`^[Also known as `superuser` or `administrator`] in Linux is a special user account with full
+administrative privileges over the entire system. This means that the `root` user can access and
+modify any file, run any command and perform any system task. This user should never be used
+directly as is a risk in security and integrity of the server.  
+
+For normal server use, we will create `user` accounts for each person with access to the server.
+Some of these accounts (especially the person in charge of maintaining the server) can be
+configured to use `sudo` command (**su**peruser **do**) to run administrative tasks usually only
+allowed to `root` (updating the system, installing software...).
 
 ### Acessing the server from Windows
 
@@ -131,17 +144,115 @@ When the renting process ends, you will receive access
 
 ### Accesing the server from Mac or Linux
 
+To access the server from MacOs or any Linux distribution we need to use the terminal (`iTerm`
+usually in MacOS, your favourite terminal emulator in Linux). We will use the `ssh` (**S**ecure
+**Sh**ell) command:
+
+```{.zsh}
+ssh [user]@[server_ip_address]
+```
+
+where `[user]` is the user name and `[server_ip_address]` is the IP address of the server. So, for
+the first time connecting the server, we need to use the `root` user and the IP address. Let's say
+our server is located at `127.0.0.1`, then we need to enter in the terminal the following:
+
+```{.zsh}
+ssh root@127.0.0.1
+```
+
+It will ask for the `root` password that you should have from the rent confirmation email sent to
+you. When writing passwords in the terminal, for security reasons the text is not showed, so don't
+worry in when writing thte password no output appears in the terminal. Just press enter after typing
+the password.
+
 ### **Important** Changing default `root` password
+
+This is very important, and must be done only once, when accessing the server for the first time.
+As explained before, `root` access can be very dangerous, so we need to change the default password
+provided. In the following example the `root` password is changed to `myUltraSecurePassword1234`:
+
+```{.zsh}
+# passwd root
+
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+```
+
+:::{.callout-tip}
+As said before, when typing the password and re-typing the password, nothing will appear in the
+terminal but the password will be registered nonetheless. This is for security reasons.
+:::
 
 ### Creating users
 
+The next step is creating the necessary users. In the following example we will create the `johndoe`
+user. Still logged as `root` user, we need to enter the following in the terminal
+
+```{.zsh}
+# useradd -m -G sudo johndoe
+```
+
+This will create the `johndoe` user without password, with `sudo` access (execute things as `root`)
+and a personal folder at `/home/johndoe/`.  
+
+Next we need is to add a password to the user:
+
+```{.zsh}
+# passwd johndoe
+
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+```
+
+Starting now, we can already connect to the server with our user. For this exit the server:
+
+```{.zsh}
+# exit
+```
+
+And in your local terminal, connect again to the server, but this time providing our new user,
+`johndoe`. In MacOS/Linux, type `ssh johndoe@127.0.0.1` (remember to change the user to the
+one you are using, as well the IP address to your server one). In Windows...(**TODO**)
+
+### Maintaining the server Installing software (system libraries)
+
+Now that we are connected to the server with out user (`jonhdoe`), first thing we need to do is
+update the system to the latest versions of the software and system libraries. This allows us
+to stay up to date with security patches to maintain the server reasonably secure. To do this, we
+need to execute with `sudo` the following commands. You will be asked for the `johndoe` password
+to ensure you have the permissions to update the system.
+
+```{.zsh}
+$ sudo apt-get update
+```
+
+This will update the software repositories information, to know which system updates are available.
+
+```{.zsh}
+$ sudo apt-get upgrade
+```
+
+This will apply any update found in the previous step.
+
+`apt-get` can be also used to install new software that are in the Ubuntu repositories. Almost any
+needed software (R, python, spatial libraries...) can be found in these repositories.  
+For example, if we want to install R we can use:
+
+```{.zsh}
+$ sudo apt-get install r-base r-base-dev
+```
+
+This will install all necessary system libraries to run R in the terminal.
+  
 ### Installing RStudio
 
-  - also explanation about libraries
+Sadly, not all software is in the Ubuntu repositories. This is true, for example, for RStudio
+software.
 
-### Maintaining the system
+  - also explanation about R libraries
 
-  - updating system
 
 ### Updating operative system
 
