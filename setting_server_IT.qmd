@@ -109,15 +109,39 @@ default than Windows servers.
   1. Look at the previus sections of this document and decide what kind of server you need in terms
   of RAM and cores range.
   
-  1. Contact CREAF IT team at https://suport.creaf.cat/support/home and create a ticket with the
+  (@) Contact CREAF IT team at https://suport.creaf.cat/support/home and create a ticket with the
   following info:
   
      - **to fill**
   
-  1. Wait until IT confirms the process is done.
+  (@) Wait until IT confirms the process is done.
   
-  1. You have a remote server.
+  (@) You have a remote server.
 
 
-## I have a remote server, what now?
+## I have a remote linux server, what now?
+
+When the renting process ends, you will receive access
+
+  - explanation about root and normal user accounts
+
+### Acessing the server from Windows
+
+  TODO: need help here
+
+### Accesing the server from Mac or Linux
+
+### **Important** Changing default `root` password
+
+### Creating users
+
+### Installing RStudio
+
+  - also explanation about libraries
+
+### Maintaining the system
+
+  - updating system
+
+### Updating operative system
 
